@@ -37,7 +37,6 @@ zeroCrossings [x] = 0
 zeroCrossings list = zeroCrossing (head list) (list !! 1) + zeroCrossings (drop 1 list)
 
 lowPassCutoff :: Integer
-lowPassCutoff = 2
+lowPassCutoff = 85
 highPassCutoff :: Integer
-highPassCutoff = 1
-
+highPassCutoff = 84
