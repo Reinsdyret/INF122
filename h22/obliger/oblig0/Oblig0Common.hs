@@ -16,7 +16,8 @@ hpf n (x:xs) = x - lpf n (x:xs)
 -- Extend a finite signal with an infinite constant past
 extend ::  Num a => [a] -> [a]
 extend [] = repeat 0
-extend list = list ++ repeat (last list)
+extend [x] = repeat x
+extend (x:xs) = x : extend xs
 
 
 -- Apply a filter to a list of values
@@ -37,6 +38,7 @@ zeroCrossings [x] = 0
 zeroCrossings list = zeroCrossing (head list) (list !! 1) + zeroCrossings (drop 1 list)
 
 lowPassCutoff :: Integer
-lowPassCutoff = 85
+lowPassCutoff = 88
 highPassCutoff :: Integer
-highPassCutoff = 84
+highPassCutoff = 85
+
