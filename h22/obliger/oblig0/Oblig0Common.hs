@@ -41,4 +41,3 @@ lowPassCutoff :: Integer
 lowPassCutoff = 88
 highPassCutoff :: Integer
 highPassCutoff = 85
-
