@@ -6,7 +6,8 @@ import Oblig0Common
     hpf,
     lowPassCutoff,
     lpf,
-    zeroCrossings
+    zeroCrossings,
+    extend
   )
 
 -- Function that returns true if a step is detected
@@ -17,23 +18,34 @@ sumData :: (Double, Double, Double) -> Double
 sumData (a,b,c) = a + b + c
 
 -- Recursively go through input file 2 lines at a time and run the isStep function, if true then putStrLn "Step!"
-stepDetector :: [String] -> IO()
-stepDetector [] = return ()
-stepDetector [line] = return ()
-stepDetector (x:y:xs) = do
-    let data1 = sumData (read x :: (Double, Double, Double))
-    let data2 = sumData (read y :: (Double, Double, Double))
-    let filtered1 = head $ applyFilter (hpf highPassCutoff) $ applyFilter (lpf lowPassCutoff) $ repeat data1
-    let filtered2 = head $ applyFilter (hpf highPassCutoff) $ applyFilter (lpf lowPassCutoff) $ repeat data2
-    putStrLn $ show filtered1
-    putStrLn $ show filtered2
-    if (isStep filtered1 filtered2)
-    then do
-        putStrLn "Step!"
-        stepDetector (y:xs)
-    else stepDetector (y:xs)
+stepDetector :: Double -> Double -> IO()
+stepDetector x y
+  | isStep x y = putStrLn "Step!"
+  | otherwise = return ()
 
+filterDaData :: Double -> Double
+filterDaData summedData = let
+  processedData =
+        applyFilter (hpf highPassCutoff) $
+          applyFilter (lpf lowPassCutoff) $
+            extend [summedData]
+  in head processedData
 
+-- doTheLines :: [String] -> IO ()
+-- doTheLines linesOfData = do
+--   let filtered = filterDaData (head linesOfData)
+--   let filtered2 = filterDaData (linesOfData !! 1)
+--   stepDetector filtered filtered2
+--   doTheLines (drop 2 linesOfData)
+
+main :: IO ()
 main = do
-    input <- getContents
-    stepDetector (lines input)
+  -- Read user data
+  input <- getLine
+  input2 <- getLine
+  let data1 = read input :: (Double, Double, Double)
+  let data2 = read input2 :: (Double, Double, Double)
+
+  stepDetector (filterDaData $ sumData data1) (filterDaData $ sumData data2)
+  main
+  
