@@ -10,6 +10,8 @@ import Oblig0Common
     extend
   )
 
+import System.IO
+
 -- Function that returns true if a step is detected
 isStep :: Double -> Double -> Bool
 isStep a b = b >= 0 && a < 0
@@ -47,5 +49,6 @@ main = do
   let data2 = read input2 :: (Double, Double, Double)
 
   stepDetector (filterDaData $ sumData data1) (filterDaData $ sumData data2)
+  hFlush stdout
   main
   
