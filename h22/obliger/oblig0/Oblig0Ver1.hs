@@ -10,6 +10,8 @@ import Oblig0Common
   )
 import System.IO
 
+import System.IO
+
 -- Function that returns true if a step is detected
 isStep :: Double -> Double -> Bool
 isStep a b = b >= 0 && a < 0
