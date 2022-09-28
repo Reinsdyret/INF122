@@ -11,19 +11,21 @@ import Oblig0Common
 import System.IO
 
 import System.IO
+import Text.ParserCombinators.ReadPrec (step)
 
 -- Function that returns true if a step is detected
 isStep :: Double -> Double -> Bool
 isStep a b = b >= 0 && a < 0
 
 
--- Worked with Erling Bratli on this task were we solved it together
+-- Worked with Erling Bratli and Ljubomir Simic on this task were we solved it together
 stepDetector :: [Double] -> IO ()
 stepDetector [] = return ()
-stepDetector (x:xs)
+stepDetector [x] = return ()
+stepDetector (x:y:xs)
 -- Cheating way to see if list repeats
-  | x == head xs = return ()
-  | isStep x (head xs) = do
+  | x == y = return ()
+  | isStep x y = do
     putStrLn "Step!"
     hFlush stdout
     stepDetector xs
