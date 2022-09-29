@@ -10,26 +10,22 @@ import Oblig0Common
   )
 import System.IO
 
-import System.IO
-import Text.ParserCombinators.ReadPrec (step)
-
 -- Function that returns true if a step is detected
 isStep :: Double -> Double -> Bool
 isStep a b = b >= 0 && a < 0
 
 
--- Worked with Erling Bratli and Ljubomir Simic on this task were we solved it together
+-- Worked with Erling Bratli and Ljubomir Simic on this task were we discussed
 stepDetector :: [Double] -> IO ()
 stepDetector [] = return ()
-stepDetector [x] = return ()
 stepDetector (x:y:xs)
 -- Cheating way to see if list repeats
   | x == y = return ()
   | isStep x y = do
     putStrLn "Step!"
     hFlush stdout
-    stepDetector xs
-  | otherwise = stepDetector xs
+    stepDetector (y:xs)
+  | otherwise = stepDetector (y:xs)
 
 main = do
   -- Read user data
@@ -40,7 +36,6 @@ main = do
   let dataLength = length summedData
   let processedData =
         applyFilter (hpf highPassCutoff) $
-          applyFilter (lpf lowPassCutoff) $
-            summedData
+          applyFilter (lpf lowPassCutoff) summedData
   -- Print step for each step in processedData
   stepDetector processedData
