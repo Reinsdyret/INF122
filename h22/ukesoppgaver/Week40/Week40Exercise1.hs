@@ -87,7 +87,16 @@ solarSystem =
 
 moonCounter :: [Planet] -> Integer
 moonCounter [] = 0
-moonCounter (x:xs) = 
+moonCounter (x:xs) = fromIntegral( length (moons x)) + moonCounter xs
 
 numberOfMoons :: PlanetarySystem -> Integer
 numberOfMoons system = moonCounter (planets system)
+
+atLeastOneMoon' :: [Planet] -> [Planet]
+atLeastOneMoon' [] = []
+atLeastOneMoon' (x:xs)
+  | length (moons x) >= 1 = x : atLeastOneMoon' xs
+  | otherwise = atLeastOneMoon' xs
+
+atLeastOneMoon :: PlanetarySystem -> [Planet]
+atLeastOneMoon system = atLeastOneMoon' (planets system)
