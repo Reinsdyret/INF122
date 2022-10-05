@@ -8,4 +8,4 @@ import qualified Data.Set as Set
 type Graph n = Map n (Set n)
 
 insertEdge :: (Ord n) => n -> n -> Graph n -> Graph n
-insertEdge u v graph = Map.insertWith Set.union u (Set.singleton v) graph
+insertEdge u v = Map.insertWith Set.union u (Set.singleton v)

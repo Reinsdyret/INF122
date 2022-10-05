@@ -11,4 +11,7 @@ type Graph n = Map n (Set n)
 disjoint :: (Ord a) => Set a -> Set a -> Bool
 disjoint a b = Set.null $ Set.intersection a b
 
+--hasCycle' :: (Ord n) => Graph n -> 
+
 hasCycle :: (Ord n) => Graph n -> n -> Bool
+hasCycle graph node = False
