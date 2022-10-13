@@ -1,8 +1,8 @@
 module Week42Exercise2 where
 
--- The way of doing this function was found on: https://stackoverflow.com/a/70745811/9113802
-reverseWord :: String -> String
-reverseWord = unwords . map reverse . words
+
+reverseWords :: String -> String
+reverseWords = unwords . map reverse . words
 
 
 sumIsEven :: Integer -> Integer -> Bool
