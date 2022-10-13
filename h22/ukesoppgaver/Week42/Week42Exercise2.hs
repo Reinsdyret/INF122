@@ -6,4 +6,4 @@ reverseWord = unwords . map reverse . words
 
 
 sumIsEven :: Integer -> Integer -> Bool
-sumIsEven = (.) even . (+)
+sumIsEven = (even .) . (+) 
