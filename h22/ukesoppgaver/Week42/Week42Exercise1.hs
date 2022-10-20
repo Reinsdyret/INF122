@@ -1,9 +1,15 @@
 module Week42Exercise1 where
 
-import Data.Either (fromLeft, fromRight)
+import Data.Either
 
 fromLeftAndRight :: (Either a b -> c) -> (a -> c, b -> c)
-fromLeftAndRight original = (leftFunc, rightFunc)
-    where
-        leftFunc aVal = original (Left aVal)
-        rightFunc bVal = original (Right bVal)
+fromLeftAndRight original = (original.Left, original.Right)
+
+either' :: (a -> c) -> (b -> c) -> Either a b -> c
+either' left right eith = either left right eith
+
+toFstAndSnd :: (a -> (b, c)) -> (a -> b, a -> c)
+toFstAndSnd thing = (fst.thing, snd.thing)
+
+pair :: (a -> b) -> (a -> c) -> a -> (b, c)
+pair f g c = (f c, g c)
