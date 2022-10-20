@@ -6,7 +6,7 @@ fromLeftAndRight :: (Either a b -> c) -> (a -> c, b -> c)
 fromLeftAndRight original = (original.Left, original.Right)
 
 either' :: (a -> c) -> (b -> c) -> Either a b -> c
-either' left right eith = either left right eith
+either' = either
 
 toFstAndSnd :: (a -> (b, c)) -> (a -> b, a -> c)
 toFstAndSnd thing = (fst.thing, snd.thing)
