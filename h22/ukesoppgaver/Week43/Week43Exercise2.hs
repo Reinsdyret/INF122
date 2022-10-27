@@ -18,12 +18,9 @@ instance IntegerGraph MyGraph where
   nodeInGraph u (MyGraph nodes edges) = elem u nodes
   edgeInGraph u v (MyGraph nodes edges) = elem (u,v) edges
 
-graph :: (IntegerGraph g) => g
-graph =
-  let graphWithNodes = insertNode 8 
-    (insert 6 
-    (insert 5 
-    (insert 3
-    (insert 1 emptyGraph))))
+helperAddEdgeFromTuple :: (IntegerGraph g) => (Integer, Integer) -> g -> g
+helperAddEdgeFromTuple (u,v) graph = insertEdge u v graph
 
- in insertEdge 1 6 (insertEdge 1 8 (insertEdge 5 1 (insertEdge 5 8 (insertEdge 8 5 graphWithNodes))))
+graph :: (IntegerGraph g) => g
+graph = let graphWithNodes = foldr insertNode emptyGraph [1,5,6,8]
+ in foldr helperAddEdgeFromTuple graphWithNodes [(1,8),(1,6),(5,1),(5,8),(8,5)]
