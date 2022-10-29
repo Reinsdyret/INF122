@@ -22,5 +22,5 @@ helperAddEdgeFromTuple :: (IntegerGraph g) => (Integer, Integer) -> g -> g
 helperAddEdgeFromTuple (u,v) graph = insertEdge u v graph
 
 graph :: (IntegerGraph g) => g
-graph = let graphWithNodes = foldr insertNode emptyGraph [1,5,6,8]
+graph = let graphWithNodes = foldr insertNode emptyGraph [1,5,3,6,8]
  in foldr helperAddEdgeFromTuple graphWithNodes [(1,8),(1,6),(5,1),(5,8),(8,5)]
