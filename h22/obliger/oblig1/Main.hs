@@ -39,7 +39,7 @@ gramLen = 7
 -- going through the list until a certain treshold has been
 -- reached.
 pick :: [(a,Weight)] -> Weight -> a
-pick weights treshold = _
+pick weights treshold = head ([a | (a,weight) <- weights | weight > treshold])
 
 -- Pick a random element from a weighted list with a given
 -- total weight.

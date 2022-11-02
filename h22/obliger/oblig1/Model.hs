@@ -29,9 +29,27 @@ increaseWeight ngram next model
 
 -- The distribution of next n-grams after a given one.
 nextDistribution :: TextModel -> NGram -> Maybe ([(NGram, Weight)],Weight)
-nextDistribution model current = Nothing
+nextDistribution model current
+  | Map.lookup current model == Nothing = Nothing
+  | otherwise = do
+    let Just (charModel, weight) = Map.lookup current model
+    Just (helperNextDistribution charModel current, weight)
+
+
+
+helperNextDistribution :: Map Char Weight -> NGram -> [(NGram, Integer)]
+helperNextDistribution charModel ngram = map (helperCompleteTuple ngram) (Map.toList charModel)
+
+helperCompleteTuple :: NGram -> (Char, Integer) -> (NGram, Integer)
+helperCompleteTuple  ngram2 (next, weight) = ((take 1 ngram2) ++ [next], weight)
 
 -- Create an n-gram model from a string.
 createModel :: Integer -> String -> TextModel
-createModel n str = emptyModel
+createModel n str = helperCreateModel (gramsWithNext n str) emptyModel 
+
+helperCreateModel :: [(NGram, Char)] -> TextModel -> TextModel
+helperCreateModel [] model = model
+helperCreateModel ((ngram, char):rest) model = do
+  let newModel = increaseWeight ngram char model
+  helperCreateModel rest newModel
 
