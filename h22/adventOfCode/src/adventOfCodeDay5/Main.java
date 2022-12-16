@@ -9,6 +9,7 @@ import java.util.Scanner;
 public class Main {
 
 	public static void main(String[] args) throws FileNotFoundException {
+    
 		
 		File inputFile = new File("day5Input.txt");
 		Scanner sc = new Scanner(inputFile);

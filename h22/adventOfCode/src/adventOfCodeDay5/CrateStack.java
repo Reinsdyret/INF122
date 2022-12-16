@@ -48,7 +48,7 @@ public class CrateStack implements ICrateStack {
 			crates.add(stack.pop());
 		}
 		// Fixing the updated terms of part 2
-		Collections.reverse(crates);
+		//Collections.reverse(crates);
 		return crates;
 	} 
 	
